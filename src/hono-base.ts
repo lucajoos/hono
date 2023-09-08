@@ -53,7 +53,7 @@ const errorHandler = (err: Error, c: Context) => {
     return err.getResponse()
   }
   console.trace(err)
-  const message = 'Internal Server Error'
+  const message = '500 Internal Server Error'
   return c.text(message, 500)
 }
 
