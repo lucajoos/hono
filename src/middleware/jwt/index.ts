@@ -30,7 +30,7 @@ export const jwt = (options: {
     if (credentials) {
       const parts = credentials.split(/\s+/)
       if (parts.length !== 2) {
-        const res = new Response('Unauthorized', {
+        const res = new Response('401 Unauthorized', {
           status: 401,
           headers: {
             'WWW-Authenticate': `Bearer realm="${ctx.req.url}",error="invalid_request",error_description="invalid credentials structure"`,
@@ -45,7 +45,7 @@ export const jwt = (options: {
     }
 
     if (!token) {
-      const res = new Response('Unauthorized', {
+      const res = new Response('401 Unauthorized', {
         status: 401,
         headers: {
           'WWW-Authenticate': `Bearer realm="${ctx.req.url}",error="invalid_request",error_description="no authorization included in request"`,
@@ -62,7 +62,7 @@ export const jwt = (options: {
       msg = `${e}`
     }
     if (!payload) {
-      const res = new Response('Unauthorized', {
+      const res = new Response('401 Unauthorized', {
         status: 401,
         statusText: msg,
         headers: {
