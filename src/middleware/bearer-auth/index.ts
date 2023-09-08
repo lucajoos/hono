@@ -28,7 +28,7 @@ export const bearerAuth = (options: {
 
     if (!headerToken) {
       // No Authorization header
-      const res = new Response('Unauthorized', {
+      const res = new Response('401 Unauthorized', {
         status: 401,
         headers: {
           'WWW-Authenticate': `${options.prefix} realm="` + realm + '"',
@@ -40,7 +40,7 @@ export const bearerAuth = (options: {
       const match = regexp.exec(headerToken)
       if (!match) {
         // Invalid Request
-        const res = new Response('Bad Request', {
+        const res = new Response('400 Bad Request', {
           status: 400,
           headers: {
             'WWW-Authenticate': `${options.prefix} error="invalid_request"`,
@@ -51,7 +51,7 @@ export const bearerAuth = (options: {
         const equal = await timingSafeEqual(options.token, match[1], options.hashFunction)
         if (!equal) {
           // Invalid Token
-          const res = new Response('Unauthorized', {
+          const res = new Response('401 Unauthorized', {
             status: 401,
             headers: {
               'WWW-Authenticate': `${options.prefix} error="invalid_token"`,
